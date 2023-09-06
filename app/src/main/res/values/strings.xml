@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Yo sé de relojes</string>
+
+    <string name="start_screen_how_much_u_know">¿Cuánto sabes de relojes?</string>
+    <string name="start_screen_show_us">Muéstranos</string>
+    <string name="start_screen_still_loading"> Cargando datos del juego</string>
+    <string name="start_screen_info_error">Existió un error al cargar el juego. Por favor intente de nuevo.</string>
+</resources>
