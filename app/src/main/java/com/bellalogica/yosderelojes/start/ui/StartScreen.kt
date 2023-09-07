@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -75,6 +76,7 @@ fun StartScreen(
             border = BorderStroke(2.dp, MaterialTheme.colorScheme.primaryContainer),
             modifier = Modifier
                 .fillMaxWidth()
+                .height(72.dp)
                 .padding(start = 32.dp, end = 32.dp, bottom = 24.dp),
             colors = ButtonDefaults.outlinedButtonColors(
                 containerColor = MaterialTheme.colorScheme.primary
@@ -116,6 +118,7 @@ fun StartScreen(
                 Text(
                     text = stringResource(id = R.string.start_screen_show_us),
                     color = MaterialTheme.colorScheme.onPrimary,
+                    fontSize = 20.sp,
                 )
             }
         }
