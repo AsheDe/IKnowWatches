@@ -1,0 +1,1 @@
+/Users/ashede/AndroidStudioProjects/Yosderelojes/buildSrc/build/classes/kotlin/main/Compose.class:/Users/ashede/AndroidStudioProjects/Yosderelojes/buildSrc/build/classes/kotlin/main/DaggerHilt.class:/Users/ashede/AndroidStudioProjects/Yosderelojes/buildSrc/build/classes/kotlin/main/Testing.class

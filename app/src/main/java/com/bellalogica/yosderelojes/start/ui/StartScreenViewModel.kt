@@ -7,7 +7,6 @@ import com.bellalogica.yosderelojes.R
 import com.bellalogica.yosderelojes.core.model.GameStatus
 import com.bellalogica.yosderelojes.utils.UiText
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
@@ -53,7 +52,6 @@ class StartScreenViewModel: ViewModel() {
     fun getGameStatus() {
         viewModelScope.launch {
             // get game status
-            delay(5000L)
             startState.value = StartScreenState(StartScreenInfo.Success)
             _gameStatus.value = GameStatus()
         }
