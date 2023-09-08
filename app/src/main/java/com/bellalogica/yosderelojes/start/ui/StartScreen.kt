@@ -31,6 +31,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -77,11 +78,12 @@ fun StartScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(72.dp)
-                .padding(start = 32.dp, end = 32.dp, bottom = 24.dp),
+                .padding(start = 32.dp, end = 32.dp, bottom = 24.dp)
+                .testTag("start_button"),
             colors = ButtonDefaults.outlinedButtonColors(
                 containerColor = MaterialTheme.colorScheme.primary
             ),
-            contentPadding = PaddingValues(start = 16.dp, end = 16.dp)
+            contentPadding = PaddingValues(start = 16.dp, end = 16.dp),
         ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -91,7 +93,7 @@ fun StartScreen(
                 when (startScreenState) {
                     StartScreenInfo.Loading -> {
                         CircularProgressIndicator(
-                            modifier = Modifier.size(20.dp),
+                            modifier = Modifier.size(20.dp).testTag("info_loading"),
                             color = MaterialTheme.colorScheme.scrim,
                             trackColor = MaterialTheme.colorScheme.error
                         )
@@ -101,7 +103,10 @@ fun StartScreen(
                         Icon(
                             imageVector = Icons.Filled.Clear,
                             contentDescription = StartScreenInfo.Error::class.simpleName.toString(),
-                            tint = MaterialTheme.colorScheme.error
+                            tint = MaterialTheme.colorScheme.error,
+                            modifier = Modifier
+                                .size(20.dp)
+                                .testTag("info_error")
                         )
                     }
 
@@ -109,9 +114,14 @@ fun StartScreen(
                         Icon(
                             imageVector = Icons.Filled.CheckCircle,
                             contentDescription = StartScreenInfo.Error::class.simpleName.toString(),
-                            tint = MaterialTheme.colorScheme.scrim
+                            tint = MaterialTheme.colorScheme.scrim,
+                            modifier = Modifier
+                                .size(20.dp)
+                                .testTag("info_success")
                         )
                     }
+
+                    else -> {}
                 }
                 Spacer(Modifier.width(16.dp))
 
