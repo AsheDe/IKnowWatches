@@ -19,5 +19,5 @@ jobs:
         run: ./gradlew connectedAndroidTest
 
       - name: Action Test Report
-        uses: asadmansr/android-test-reporter-action@v1.2.0
+        uses: mikepenz/action-junit-report@v2
         if: always()
