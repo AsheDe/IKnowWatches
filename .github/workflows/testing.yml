@@ -40,8 +40,8 @@ jobs:
           distribution: 'zulu'
           java-version: 17
 
+      - uses: reactivecircus/android-emulator-runner@v2
       - name: 3. Run Android tests on Android API level ${{ matrix.android-api }}
-        uses: reactivecircus/android-emulator-runner@v2
         with:
           arch: x86_64
           api-level: ${{ matrix.android-api }}
