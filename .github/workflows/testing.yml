@@ -19,7 +19,7 @@ jobs:
         uses: mikepenz/action-junit-report@v2
         if: always()
 
-  instrumentation-test:
+  connected-test:
     needs: test
     runs-on: macos-latest
     steps:
@@ -29,5 +29,7 @@ jobs:
       - name: Emulator test
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: 29
+          api-level: 30
+          target: google_apis
+          arch: x86_64
           script: ./gradlew connectedCheck
