@@ -20,7 +20,7 @@ jobs:
         if: always()
 
   instrumented-test:
-    needs: test
+    #needs: test
     runs-on: macos-latest
     timeout-minutes: 20
     strategy:
@@ -29,7 +29,7 @@ jobs:
 
     # All build steps
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v3
       - name: 1. Check out code
         with:
           fetch-depth: '0'
