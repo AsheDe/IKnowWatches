@@ -19,7 +19,7 @@ jobs:
         uses: mikepenz/action-junit-report@v2
         if: always()
 
-  connected-test:
+  instrumented-test:
     needs: test
     runs-on: macos-latest
     steps:
