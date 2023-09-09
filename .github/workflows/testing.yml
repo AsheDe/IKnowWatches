@@ -15,9 +15,21 @@ jobs:
       - name: Run Tests
         run: ./gradlew testDebugUnitTest
 
-      - name: Run Tests
-        run: ./gradlew connectedAndroidTest
-
       - name: Action Test Report
         uses: mikepenz/action-junit-report@v2
         if: always()
+
+  instrumentation-test:
+    needs: test
+    runs-on: macos-latest
+    steps:
+      - name: Get code
+        uses: actions/checkout@v3
+
+      - name: Emulator test
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 26
+          arch: arm64-v8a
+          profile: Nexus 5
+          script: ./gradlew connectedDebugAndroidTest
