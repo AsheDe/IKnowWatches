@@ -2,9 +2,9 @@ name: IKnowWatches CI
 
 on:
   push:
-    branches: [ "development" ]
+    branches: [ "development", "main" ]
   pull_request:
-    branches: [ * ]
+    branches: [ "development", "main" ]
 
 jobs:
   build:
