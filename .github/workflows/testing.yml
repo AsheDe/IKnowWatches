@@ -25,7 +25,7 @@ jobs:
     timeout-minutes: 20
     strategy:
       matrix:
-      android-api: [ 26, 33 ]
+        android-api: [ 26, 33 ]
 
     steps:
       - name: 1. Check out code
