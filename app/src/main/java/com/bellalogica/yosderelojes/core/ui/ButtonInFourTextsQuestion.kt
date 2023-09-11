@@ -23,8 +23,7 @@ fun ButtonInFourTextsQuestion(modifier: Modifier, text: String, event: () -> Uni
         border = BorderStroke(2.dp, MaterialTheme.colorScheme.primaryContainer),
         modifier = modifier
             .fillMaxWidth()
-            .height(64.dp)
-            .padding(start = 32.dp, end = 32.dp, bottom = 12.dp),
+            .padding(start = 32.dp, end = 32.dp),
         colors = ButtonDefaults.outlinedButtonColors(
             containerColor = MaterialTheme.colorScheme.primary
         ),

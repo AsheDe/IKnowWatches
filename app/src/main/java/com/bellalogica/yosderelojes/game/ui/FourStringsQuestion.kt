@@ -25,7 +25,7 @@ import com.bellalogica.yosderelojes.game.model.ImageWrapper
 import com.bellalogica.yosderelojes.game.model.Question
 
 @Composable
-fun Four_Strings_Question(
+fun FourStringsQuestion(
     question: Question.FourTextsQuestion,
     event: (Question) -> Unit
 ) {
@@ -42,13 +42,13 @@ fun Four_Strings_Question(
             verticalArrangement = Arrangement.SpaceAround
         ) {
             Image(painter = rememberAsyncImagePainter((question.leadingImage.resource)),
-                contentDescription = "leading_image",
+                contentDescription = "leading_image_desc",
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .fillMaxWidth(1f)
                     .padding(8.dp)
                     .border(4.dp, MaterialTheme.colorScheme.primary)
-                    .fillMaxHeight(0.4f)
+                    .fillMaxHeight(0.35f)
                     .clickable { })
 
             Text(
@@ -61,7 +61,9 @@ fun Four_Strings_Question(
                 color = MaterialTheme.colorScheme.primary
             )
 
-            Column {
+            Column(modifier = Modifier.weight(1f),
+                verticalArrangement = Arrangement.SpaceEvenly
+                ) {
                 ButtonInFourTextsQuestion(
                     modifier = Modifier,
                     text = question.answers[0].content,
@@ -90,18 +92,18 @@ fun Four_Strings_Question(
     }
 }
 
-@Preview(showBackground = true, device = "id:Nexus 6")
+@Preview(showBackground = true, device = "spec:parent=Nexus One", apiLevel = 28)
 @Composable
 fun showPreview() {
-    Four_Strings_Question(
+    FourStringsQuestion(
         question = Question.FourTextsQuestion(
             questionText = "¿Cuál es el nombre de este reloj?",
             leadingImage = ImageWrapper.ResourcesImage(R.mipmap.vacheron),
             answers = listOf(
-                Answers.StringAnswer("answ 1", true),
-                Answers.StringAnswer("answ 2", false),
-                Answers.StringAnswer("answ 3", false),
-                Answers.StringAnswer("answ 4", false)
+                Answers.TextAnswer("answ 1", true),
+                Answers.TextAnswer("answ 2", false),
+                Answers.TextAnswer("answ 3", false),
+                Answers.TextAnswer("answ 4", false)
             )
         ),
         event = { }
