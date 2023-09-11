@@ -21,7 +21,7 @@ import com.bellalogica.yosderelojes.core.ui.Routes
 import com.bellalogica.yosderelojes.game.model.Answers
 import com.bellalogica.yosderelojes.game.model.ImageWrapper
 import com.bellalogica.yosderelojes.game.model.Question
-import com.bellalogica.yosderelojes.game.ui.Four_Strings_Question
+import com.bellalogica.yosderelojes.game.ui.FourStringsQuestion
 import com.bellalogica.yosderelojes.start.ui.StartScreen
 import com.bellalogica.yosderelojes.start.ui.StartScreenEvents
 import com.bellalogica.yosderelojes.start.ui.StartScreenViewModel
@@ -94,14 +94,14 @@ class MainActivity : ComponentActivity() {
                                  )),
                                  event = {})*/
 
-                            Four_Strings_Question(question = Question.FourTextsQuestion(
+                            FourStringsQuestion(question = Question.FourTextsQuestion(
                                 questionText = "¿Cuál es el nombre de este reloj?",
                                 leadingImage = ImageWrapper.ResourcesImage(R.mipmap.vacheron),
                                 answers = listOf(
-                                    Answers.StringAnswer("answ 1", true),
-                                    Answers.StringAnswer("answ 2", false),
-                                    Answers.StringAnswer("answ 3", false),
-                                    Answers.StringAnswer("answ 4", false)
+                                    Answers.TextAnswer("answ 1", true),
+                                    Answers.TextAnswer("answ 2", false),
+                                    Answers.TextAnswer("answ 3", false),
+                                    Answers.TextAnswer("answ 4", false)
                                 )
                             ), event = {})
 
