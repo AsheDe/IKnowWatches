@@ -33,10 +33,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.bellalogica.yosderelojes.R
+import com.bellalogica.yosderelojes.ui.theme.MyFontFamily
 import kotlinx.coroutines.delay
 
 @Composable
@@ -58,13 +60,15 @@ fun StartScreen(
             enabled = true
         }
 
-        val alpha: Float by animateFloatAsState(if (enabled) 1f else 0.3f)
+        val alpha: Float by animateFloatAsState(if (enabled) 1f else 0.3f, label = "")
 
         Text(
             text = stringResource(id = R.string.start_screen_how_much_u_know),
             style = MaterialTheme.typography.headlineLarge,
             color = MaterialTheme.colorScheme.primary,
-            fontSize = 40.sp,
+            fontFamily = MyFontFamily,
+            fontWeight = FontWeight.Bold,
+            fontSize = 36.sp,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 32.dp)
@@ -129,6 +133,8 @@ fun StartScreen(
                     text = stringResource(id = R.string.start_screen_show_us),
                     color = MaterialTheme.colorScheme.onPrimary,
                     fontSize = 20.sp,
+                    fontFamily = MyFontFamily,
+                    fontWeight = FontWeight.SemiBold
                 )
             }
         }

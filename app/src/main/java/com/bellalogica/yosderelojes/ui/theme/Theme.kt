@@ -23,6 +23,8 @@ val MyFontFamily = FontFamily(
     Font(R.font.segoeuisl, FontWeight.Normal),
     Font(R.font.segoesb, FontWeight.Medium),
     Font(R.font.dataregular, FontWeight.Bold),
+    Font(R.font.dataregular, FontWeight.ExtraBold),
+    Font(R.font.dataregular, FontWeight.SemiBold),
     Font(R.font.authentic, FontWeight.Light),
 )
 

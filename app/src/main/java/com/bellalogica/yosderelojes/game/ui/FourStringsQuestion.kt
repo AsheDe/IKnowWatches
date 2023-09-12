@@ -14,6 +14,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -23,17 +24,16 @@ import com.bellalogica.yosderelojes.core.ui.ButtonInFourTextsQuestion
 import com.bellalogica.yosderelojes.game.model.Answers
 import com.bellalogica.yosderelojes.game.model.ImageWrapper
 import com.bellalogica.yosderelojes.game.model.Question
+import com.bellalogica.yosderelojes.ui.theme.MyFontFamily
 
 @Composable
 fun FourStringsQuestion(
     question: Question.FourTextsQuestion,
-    event: (Question) -> Unit
+    event: (UserGameEvents) -> Unit
 ) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp)
-            .padding(top = 32.dp)
     ) {
 
         Column(
@@ -58,7 +58,9 @@ fun FourStringsQuestion(
                     .padding(16.dp),
                 textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.headlineMedium,
-                color = MaterialTheme.colorScheme.primary
+                color = MaterialTheme.colorScheme.primary,
+                fontFamily = MyFontFamily,
+                fontWeight = FontWeight.SemiBold
             )
 
             Column(modifier = Modifier.weight(1f),
@@ -67,25 +69,25 @@ fun FourStringsQuestion(
                 ButtonInFourTextsQuestion(
                     modifier = Modifier,
                     text = question.answers[0].content,
-                    event = { event(question) }
+                    event = { event(UserGameEvents.OnAnswerSelected(question.answers[0])) }
                 )
 
                 ButtonInFourTextsQuestion(
                     modifier = Modifier,
                     text = question.answers[1].content,
-                    event = { event(question) }
+                    event = { event(UserGameEvents.OnAnswerSelected(question.answers[1])) }
                 )
 
                 ButtonInFourTextsQuestion(
                     modifier = Modifier,
                     text = question.answers[2].content,
-                    event = { event(question) }
+                    event = { event(UserGameEvents.OnAnswerSelected(question.answers[2]))}
                 )
 
                 ButtonInFourTextsQuestion(
                     modifier = Modifier,
                     text = question.answers[3].content,
-                    event = { event(question) }
+                    event = { event(UserGameEvents.OnAnswerSelected(question.answers[3])) }
                 )
             }
         }
