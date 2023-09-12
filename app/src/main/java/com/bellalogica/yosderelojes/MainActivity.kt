@@ -12,6 +12,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
@@ -22,6 +24,10 @@ import com.bellalogica.yosderelojes.game.model.Answers
 import com.bellalogica.yosderelojes.game.model.ImageWrapper
 import com.bellalogica.yosderelojes.game.model.Question
 import com.bellalogica.yosderelojes.game.ui.FourStringsQuestion
+import com.bellalogica.yosderelojes.game.ui.GameScreen
+import com.bellalogica.yosderelojes.game.ui.GameState
+import com.bellalogica.yosderelojes.game.ui.GameViewModel
+import com.bellalogica.yosderelojes.game.ui.UserState
 import com.bellalogica.yosderelojes.start.ui.StartScreen
 import com.bellalogica.yosderelojes.start.ui.StartScreenEvents
 import com.bellalogica.yosderelojes.start.ui.StartScreenViewModel
@@ -85,25 +91,39 @@ class MainActivity : ComponentActivity() {
                                 animationSpec = tween(500)
                             )
                         }) {
-                            /* Four_Pictures_Question(question = Question.FourPicturesQuestion("question",
-                                 listOf(
-                                     Answers.ImageAnswer(ImageWrapper.ResourcesImage(R.mipmap.vacheron)),
-                                     Answers.ImageAnswer(ImageWrapper.ResourcesImage(R.mipmap.vacheron)),
-                                     Answers.ImageAnswer(ImageWrapper.ResourcesImage(R.mipmap.vacheron)),
-                                     Answers.ImageAnswer(ImageWrapper.ResourcesImage(R.mipmap.vacheron)),
-                                 )),
-                                 event = {})*/
 
-                            FourStringsQuestion(question = Question.FourTextsQuestion(
-                                questionText = "¿Cuál es el nombre de este reloj?",
-                                leadingImage = ImageWrapper.ResourcesImage(R.mipmap.vacheron),
-                                answers = listOf(
-                                    Answers.TextAnswer("answ 1", true),
-                                    Answers.TextAnswer("answ 2", false),
-                                    Answers.TextAnswer("answ 3", false),
-                                    Answers.TextAnswer("answ 4", false)
+                            //val gameViewModel = viewModel<GameViewModel>()
+                            //gameViewModel.gameLevel.value
+
+                            val listOfQuestion = remember {
+                            mutableStateOf(
+                            listOf(
+                                Question.FourPicturesQuestion(
+                                    questionText = "¿Cuál es el nombre de este reloj?", answers = listOf(
+                                        Answers.ImageAnswer(ImageWrapper.ResourcesImage(R.mipmap.vacheron), true),
+                                        Answers.ImageAnswer(ImageWrapper.ResourcesImage(R.mipmap.vacheron), false),
+                                        Answers.ImageAnswer(ImageWrapper.ResourcesImage(R.mipmap.vacheron), false),
+                                        Answers.ImageAnswer(ImageWrapper.ResourcesImage(R.mipmap.vacheron), false)
+                                    )
+                                ),
+
+                                Question.FourTextsQuestion(
+                                    questionText = "¿Cuál es el nombre de este reloj?",
+                                    leadingImage = ImageWrapper.ResourcesImage(R.mipmap.vacheron),
+                                    answers = listOf(
+                                        Answers.TextAnswer("answ 1", true),
+                                        Answers.TextAnswer("answ 2", false),
+                                        Answers.TextAnswer("answ 3", false),
+                                        Answers.TextAnswer("answ 4", false)
+                                    )
                                 )
-                            ), event = {})
+                            ).shuffled())}
+
+                            GameScreen(gameState = GameState(
+                                listOfLevelQuestions = listOfQuestion.value, userState = UserState()
+                            ), onGameEvent = {
+                                listOfQuestion.value = listOfQuestion.value.drop(1)
+                            } )
 
                         }
                         composable(route = Routes.GAME_SCORE, exitTransition = {

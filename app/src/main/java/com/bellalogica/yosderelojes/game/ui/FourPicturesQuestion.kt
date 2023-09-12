@@ -12,6 +12,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -21,16 +22,15 @@ import com.bellalogica.yosderelojes.core.ui.ImageInFourPicturesQuestion
 import com.bellalogica.yosderelojes.game.model.Answers
 import com.bellalogica.yosderelojes.game.model.ImageWrapper
 import com.bellalogica.yosderelojes.game.model.Question
+import com.bellalogica.yosderelojes.ui.theme.MyFontFamily
 
 @Composable
 fun FourPicturesQuestion(
     question: Question.FourPicturesQuestion,
-    event: (Question) -> Unit
+    event: (UserGameEvents) -> Unit
 ) {
     Column(modifier = Modifier
         .fillMaxSize()
-        .padding(16.dp)
-        .padding(top = 64.dp)
     ) {
 
         Column(modifier = Modifier
@@ -43,7 +43,9 @@ fun FourPicturesQuestion(
                     modifier = Modifier
                         .weight(1f),
                     image = question.answers[0].content,
-                    event = { event(question) },
+                    event = {
+                        event(UserGameEvents.OnAnswerSelected(question.answers[0]))
+                            },
                     description = "image_0"
                 )
 
@@ -51,7 +53,7 @@ fun FourPicturesQuestion(
                     modifier = Modifier
                         .weight(1f),
                     image = question.answers[1].content,
-                    event = { event(question) },
+                    event = { event(UserGameEvents.OnAnswerSelected(question.answers[1])) },
                     description = "image_1"
                 )
             }
@@ -61,7 +63,7 @@ fun FourPicturesQuestion(
                     modifier = Modifier
                         .weight(1f),
                     image = question.answers[2].content,
-                    event = { event(question) },
+                    event = { event(UserGameEvents.OnAnswerSelected(question.answers[2])) },
                     description = "image_2"
                 )
 
@@ -69,30 +71,32 @@ fun FourPicturesQuestion(
                     modifier = Modifier
                         .weight(1f),
                     image = question.answers[3].content,
-                    event = { event(question) },
+                    event = { event(UserGameEvents.OnAnswerSelected(question.answers[3])) },
                     description = "image_3"
                 )
             }
         }
-        Spacer(modifier = Modifier.height(64.dp))
+        Spacer(modifier = Modifier.height(32.dp))
 
         Box(modifier = Modifier.weight(0.5f).fillMaxWidth()) {
             Text(
                 text = question.questionText,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(24.dp),
+                    .padding(16.dp),
                // style = TextStyle(fontSize = 36.sp, color = MaterialTheme.colorScheme.primary),
                 textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.headlineLarge,
                 color = MaterialTheme.colorScheme.primary,
-                fontSize = 40.sp,
+                fontFamily = MyFontFamily,
+                fontWeight = FontWeight.Bold,
+                fontSize = 28.sp,
             )
         }
     }
 }
 
-@Preview(showBackground = true)
+@Preview(showBackground = true, device = "spec:parent=Nexus One", apiLevel = 28)
 @Composable
 fun PreviewFourPicturesScreen(){
     FourPicturesQuestion(question = Question.FourPicturesQuestion("question",
