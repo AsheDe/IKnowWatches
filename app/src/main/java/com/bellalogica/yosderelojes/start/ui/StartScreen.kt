@@ -101,6 +101,16 @@ fun StartScreen(
                             color = MaterialTheme.colorScheme.scrim,
                             trackColor = MaterialTheme.colorScheme.error
                         )
+
+                        Spacer(Modifier.width(16.dp))
+
+                        Text(
+                            text = stringResource(id = R.string.start_screen_loading),
+                            color = MaterialTheme.colorScheme.onPrimary,
+                            fontSize = 20.sp,
+                            fontFamily = MyFontFamily,
+                            fontWeight = FontWeight.SemiBold
+                        )
                     }
 
                     StartScreenInfo.Error -> {
@@ -111,6 +121,16 @@ fun StartScreen(
                             modifier = Modifier
                                 .size(20.dp)
                                 .testTag("info_error")
+                        )
+
+                        Spacer(Modifier.width(16.dp))
+
+                        Text(
+                            text = stringResource(id = R.string.start_screen_retry),
+                            color = MaterialTheme.colorScheme.onPrimary,
+                            fontSize = 20.sp,
+                            fontFamily = MyFontFamily,
+                            fontWeight = FontWeight.SemiBold
                         )
                     }
 
@@ -123,19 +143,21 @@ fun StartScreen(
                                 .size(20.dp)
                                 .testTag("info_success")
                         )
+
+                        Spacer(Modifier.width(16.dp))
+
+                        Text(
+                            text = stringResource(id = R.string.start_screen_show_us),
+                            color = MaterialTheme.colorScheme.onPrimary,
+                            fontSize = 20.sp,
+                            fontFamily = MyFontFamily,
+                            fontWeight = FontWeight.SemiBold
+                        )
                     }
 
                     else -> {}
                 }
-                Spacer(Modifier.width(16.dp))
 
-                Text(
-                    text = stringResource(id = R.string.start_screen_show_us),
-                    color = MaterialTheme.colorScheme.onPrimary,
-                    fontSize = 20.sp,
-                    fontFamily = MyFontFamily,
-                    fontWeight = FontWeight.SemiBold
-                )
             }
         }
     }

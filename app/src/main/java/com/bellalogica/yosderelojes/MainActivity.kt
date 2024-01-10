@@ -1,6 +1,7 @@
 package com.bellalogica.yosderelojes
 
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -23,7 +24,6 @@ import com.bellalogica.yosderelojes.core.ui.Routes
 import com.bellalogica.yosderelojes.game.model.Answers
 import com.bellalogica.yosderelojes.game.model.ImageWrapper
 import com.bellalogica.yosderelojes.game.model.Question
-import com.bellalogica.yosderelojes.game.ui.FourStringsQuestion
 import com.bellalogica.yosderelojes.game.ui.GameScreen
 import com.bellalogica.yosderelojes.game.ui.GameState
 import com.bellalogica.yosderelojes.game.ui.GameViewModel
@@ -33,6 +33,7 @@ import com.bellalogica.yosderelojes.start.ui.StartScreenEvents
 import com.bellalogica.yosderelojes.start.ui.StartScreenViewModel
 import com.bellalogica.yosderelojes.ui.theme.YoSéDeRelojesTheme
 import kotlinx.coroutines.delay
+import org.koin.androidx.compose.koinViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,7 +51,7 @@ class MainActivity : ComponentActivity() {
                                 animationSpec = tween(500)
                             )
                         }) {
-                            val startViewModel = viewModel<StartScreenViewModel>()
+                            val startViewModel = koinViewModel<StartScreenViewModel>()
                             StartScreen(
                                 startScreenState = startViewModel.startState.value.startScreenInfo,
                                 onEvent = startViewModel::onEnterGameClicked
@@ -77,8 +78,7 @@ class MainActivity : ComponentActivity() {
                             }
 
                             LaunchedEffect(key1 = true) {
-                                delay(5000L)
-                                startViewModel.getGameStatus()
+                                startViewModel.getGameStarterStatus()
                             }
                         }
 
@@ -95,7 +95,7 @@ class MainActivity : ComponentActivity() {
                             //val gameViewModel = viewModel<GameViewModel>()
                             //gameViewModel.gameLevel.value
 
-                            val listOfQuestion = remember {
+                            /*val listOfQuestion = remember {
                             mutableStateOf(
                             listOf(
                                 Question.FourPicturesQuestion(
@@ -117,13 +117,16 @@ class MainActivity : ComponentActivity() {
                                         Answers.TextAnswer("answ 4", false)
                                     )
                                 )
-                            ).shuffled())}
+                            ).shuffled())}*/
 
-                            GameScreen(gameState = GameState(
-                                listOfLevelQuestions = listOfQuestion.value, userState = UserState()
-                            ), onGameEvent = {
-                                listOfQuestion.value = listOfQuestion.value.drop(1)
-                            } )
+                            val gameViewModel = koinViewModel<GameViewModel>()
+                            gameViewModel.getGameState()
+                            GameScreen(
+                                gameState = gameViewModel.gameState.value,
+                                onGameEvent = {
+                                    gameViewModel.onGameEvent(it)
+                                }
+                             )
 
                         }
                         composable(route = Routes.GAME_SCORE, exitTransition = {

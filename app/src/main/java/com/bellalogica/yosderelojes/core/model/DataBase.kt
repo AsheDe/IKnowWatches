@@ -1,4 +1,4 @@
-package com.bellalogica.yosderelojes.game.model.local
+package com.bellalogica.yosderelojes.core.model
 
 import com.bellalogica.yosderelojes.game.model.Question
 import com.bellalogica.yosderelojes.game.ui.UserState
