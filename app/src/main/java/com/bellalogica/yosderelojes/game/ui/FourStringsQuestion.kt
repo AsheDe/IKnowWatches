@@ -14,6 +14,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -23,17 +24,16 @@ import com.bellalogica.yosderelojes.core.ui.ButtonInFourTextsQuestion
 import com.bellalogica.yosderelojes.game.model.Answers
 import com.bellalogica.yosderelojes.game.model.ImageWrapper
 import com.bellalogica.yosderelojes.game.model.Question
+import com.bellalogica.yosderelojes.ui.theme.MyFontFamily
 
 @Composable
-fun Four_Strings_Question(
+fun FourStringsQuestion(
     question: Question.FourTextsQuestion,
-    event: (Question) -> Unit
+    event: (UserGameEvents) -> Unit
 ) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp)
-            .padding(top = 32.dp)
     ) {
 
         Column(
@@ -42,13 +42,13 @@ fun Four_Strings_Question(
             verticalArrangement = Arrangement.SpaceAround
         ) {
             Image(painter = rememberAsyncImagePainter((question.leadingImage.resource)),
-                contentDescription = "leading_image",
+                contentDescription = "leading_image_desc",
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .fillMaxWidth(1f)
                     .padding(8.dp)
                     .border(4.dp, MaterialTheme.colorScheme.primary)
-                    .fillMaxHeight(0.4f)
+                    .fillMaxHeight(0.35f)
                     .clickable { })
 
             Text(
@@ -58,50 +58,54 @@ fun Four_Strings_Question(
                     .padding(16.dp),
                 textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.headlineMedium,
-                color = MaterialTheme.colorScheme.primary
+                color = MaterialTheme.colorScheme.primary,
+                fontFamily = MyFontFamily,
+                fontWeight = FontWeight.SemiBold
             )
 
-            Column {
+            Column(modifier = Modifier.weight(1f),
+                verticalArrangement = Arrangement.SpaceEvenly
+                ) {
                 ButtonInFourTextsQuestion(
                     modifier = Modifier,
                     text = question.answers[0].content,
-                    event = { event(question) }
+                    event = { event(UserGameEvents.OnAnswerSelected(question.answers[0])) }
                 )
 
                 ButtonInFourTextsQuestion(
                     modifier = Modifier,
                     text = question.answers[1].content,
-                    event = { event(question) }
+                    event = { event(UserGameEvents.OnAnswerSelected(question.answers[1])) }
                 )
 
                 ButtonInFourTextsQuestion(
                     modifier = Modifier,
                     text = question.answers[2].content,
-                    event = { event(question) }
+                    event = { event(UserGameEvents.OnAnswerSelected(question.answers[2]))}
                 )
 
                 ButtonInFourTextsQuestion(
                     modifier = Modifier,
                     text = question.answers[3].content,
-                    event = { event(question) }
+                    event = { event(UserGameEvents.OnAnswerSelected(question.answers[3])) }
                 )
             }
         }
     }
 }
 
-@Preview(showBackground = true, device = "id:Nexus 6")
+@Preview(showBackground = true, device = "spec:parent=Nexus One", apiLevel = 28)
 @Composable
 fun showPreview() {
-    Four_Strings_Question(
+    FourStringsQuestion(
         question = Question.FourTextsQuestion(
             questionText = "¿Cuál es el nombre de este reloj?",
             leadingImage = ImageWrapper.ResourcesImage(R.mipmap.vacheron),
             answers = listOf(
-                Answers.StringAnswer("answ 1", true),
-                Answers.StringAnswer("answ 2", false),
-                Answers.StringAnswer("answ 3", false),
-                Answers.StringAnswer("answ 4", false)
+                Answers.TextAnswer("answ 1", true),
+                Answers.TextAnswer("answ 2", false),
+                Answers.TextAnswer("answ 3", false),
+                Answers.TextAnswer("answ 4", false)
             )
         ),
         event = { }

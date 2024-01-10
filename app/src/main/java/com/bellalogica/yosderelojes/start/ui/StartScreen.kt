@@ -31,11 +31,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.bellalogica.yosderelojes.R
+import com.bellalogica.yosderelojes.ui.theme.MyFontFamily
 import kotlinx.coroutines.delay
 
 @Composable
@@ -57,13 +60,15 @@ fun StartScreen(
             enabled = true
         }
 
-        val alpha: Float by animateFloatAsState(if (enabled) 1f else 0.3f)
+        val alpha: Float by animateFloatAsState(if (enabled) 1f else 0.3f, label = "")
 
         Text(
             text = stringResource(id = R.string.start_screen_how_much_u_know),
             style = MaterialTheme.typography.headlineLarge,
             color = MaterialTheme.colorScheme.primary,
-            fontSize = 40.sp,
+            fontFamily = MyFontFamily,
+            fontWeight = FontWeight.Bold,
+            fontSize = 36.sp,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 32.dp)
@@ -77,11 +82,12 @@ fun StartScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(72.dp)
-                .padding(start = 32.dp, end = 32.dp, bottom = 24.dp),
+                .padding(start = 32.dp, end = 32.dp, bottom = 24.dp)
+                .testTag("start_button"),
             colors = ButtonDefaults.outlinedButtonColors(
                 containerColor = MaterialTheme.colorScheme.primary
             ),
-            contentPadding = PaddingValues(start = 16.dp, end = 16.dp)
+            contentPadding = PaddingValues(start = 16.dp, end = 16.dp),
         ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
@@ -91,9 +97,19 @@ fun StartScreen(
                 when (startScreenState) {
                     StartScreenInfo.Loading -> {
                         CircularProgressIndicator(
-                            modifier = Modifier.size(20.dp),
+                            modifier = Modifier.size(20.dp).testTag("info_loading"),
                             color = MaterialTheme.colorScheme.scrim,
                             trackColor = MaterialTheme.colorScheme.error
+                        )
+
+                        Spacer(Modifier.width(16.dp))
+
+                        Text(
+                            text = stringResource(id = R.string.start_screen_loading),
+                            color = MaterialTheme.colorScheme.onPrimary,
+                            fontSize = 20.sp,
+                            fontFamily = MyFontFamily,
+                            fontWeight = FontWeight.SemiBold
                         )
                     }
 
@@ -101,7 +117,20 @@ fun StartScreen(
                         Icon(
                             imageVector = Icons.Filled.Clear,
                             contentDescription = StartScreenInfo.Error::class.simpleName.toString(),
-                            tint = MaterialTheme.colorScheme.error
+                            tint = MaterialTheme.colorScheme.error,
+                            modifier = Modifier
+                                .size(20.dp)
+                                .testTag("info_error")
+                        )
+
+                        Spacer(Modifier.width(16.dp))
+
+                        Text(
+                            text = stringResource(id = R.string.start_screen_retry),
+                            color = MaterialTheme.colorScheme.onPrimary,
+                            fontSize = 20.sp,
+                            fontFamily = MyFontFamily,
+                            fontWeight = FontWeight.SemiBold
                         )
                     }
 
@@ -109,17 +138,26 @@ fun StartScreen(
                         Icon(
                             imageVector = Icons.Filled.CheckCircle,
                             contentDescription = StartScreenInfo.Error::class.simpleName.toString(),
-                            tint = MaterialTheme.colorScheme.scrim
+                            tint = MaterialTheme.colorScheme.scrim,
+                            modifier = Modifier
+                                .size(20.dp)
+                                .testTag("info_success")
+                        )
+
+                        Spacer(Modifier.width(16.dp))
+
+                        Text(
+                            text = stringResource(id = R.string.start_screen_show_us),
+                            color = MaterialTheme.colorScheme.onPrimary,
+                            fontSize = 20.sp,
+                            fontFamily = MyFontFamily,
+                            fontWeight = FontWeight.SemiBold
                         )
                     }
-                }
-                Spacer(Modifier.width(16.dp))
 
-                Text(
-                    text = stringResource(id = R.string.start_screen_show_us),
-                    color = MaterialTheme.colorScheme.onPrimary,
-                    fontSize = 20.sp,
-                )
+                    else -> {}
+                }
+
             }
         }
     }

@@ -13,8 +13,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.bellalogica.yosderelojes.ui.theme.MyFontFamily
 
 @Composable
 fun ButtonInFourTextsQuestion(modifier: Modifier, text: String, event: () -> Unit) {
@@ -23,8 +25,7 @@ fun ButtonInFourTextsQuestion(modifier: Modifier, text: String, event: () -> Uni
         border = BorderStroke(2.dp, MaterialTheme.colorScheme.primaryContainer),
         modifier = modifier
             .fillMaxWidth()
-            .height(64.dp)
-            .padding(start = 32.dp, end = 32.dp, bottom = 12.dp),
+            .padding(start = 32.dp, end = 32.dp),
         colors = ButtonDefaults.outlinedButtonColors(
             containerColor = MaterialTheme.colorScheme.primary
         ),
@@ -33,7 +34,9 @@ fun ButtonInFourTextsQuestion(modifier: Modifier, text: String, event: () -> Uni
         Text(text = text,
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onPrimary,
-            fontSize = 20.sp)
+            fontFamily = MyFontFamily,
+            fontWeight = FontWeight.SemiBold,
+            fontSize = 16.sp)
     }
 
 }
