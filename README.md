@@ -2,4 +2,4 @@
 
 Una App Trivia sobre relojes y horología en general.
 
-![I know watches](app/src/main/res/mipmap-hdpi/iknowwatchesscreenshot.png)
+![I know watches](https://github.com/AsheDe/IKnowWatches/blob/main/app/iknowwatchesscreenshot.png)https://github.com/AsheDe/IKnowWatches/blob/main/app/iknowwatchesscreenshot.png)
