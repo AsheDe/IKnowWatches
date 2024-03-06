@@ -4,5 +4,6 @@ data class QuestionLevelDto(
     val answers: List<AnswerLevelDto>,
     val leadingImage: String,
     val questionText: String,
-    val questionType: String
+    val questionType: String,
+    val level: Int
 )

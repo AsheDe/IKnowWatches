@@ -1,7 +1,6 @@
 package com.bellalogica.yosderelojes
 
 import android.os.Bundle
-import android.view.View
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -13,26 +12,18 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.bellalogica.yosderelojes.core.ui.Routes
-import com.bellalogica.yosderelojes.game.model.Answers
-import com.bellalogica.yosderelojes.game.model.ImageWrapper
-import com.bellalogica.yosderelojes.game.model.Question
+import com.bellalogica.yosderelojes.game.ui.GameEvents
 import com.bellalogica.yosderelojes.game.ui.GameScreen
-import com.bellalogica.yosderelojes.game.ui.GameState
 import com.bellalogica.yosderelojes.game.ui.GameViewModel
-import com.bellalogica.yosderelojes.game.ui.UserState
 import com.bellalogica.yosderelojes.start.ui.StartScreen
 import com.bellalogica.yosderelojes.start.ui.StartScreenEvents
 import com.bellalogica.yosderelojes.start.ui.StartScreenViewModel
 import com.bellalogica.yosderelojes.ui.theme.YoSéDeRelojesTheme
-import kotlinx.coroutines.delay
 import org.koin.androidx.compose.koinViewModel
 
 class MainActivity : ComponentActivity() {
@@ -62,6 +53,11 @@ class MainActivity : ComponentActivity() {
                                         is StartScreenEvents.GoToGame -> {
                                             // pasar el game status
                                             navController.navigate(Routes.GAME)
+                                            Toast.makeText(
+                                                this@MainActivity,
+                                                "Iniciando nivel ${ it.gameStatus.levelPlaying.toString() }",
+                                                Toast.LENGTH_SHORT
+                                            ).show()
                                         }
 
                                         is StartScreenEvents.ShowMessage -> {
@@ -72,7 +68,7 @@ class MainActivity : ComponentActivity() {
                                             ).show()
                                         }
 
-                                        else -> {}
+                                        StartScreenEvents.EnterGameClicked -> TODO()
                                     }
                                 }
                             }
@@ -92,41 +88,31 @@ class MainActivity : ComponentActivity() {
                             )
                         }) {
 
-                            //val gameViewModel = viewModel<GameViewModel>()
-                            //gameViewModel.gameLevel.value
-
-                            /*val listOfQuestion = remember {
-                            mutableStateOf(
-                            listOf(
-                                Question.FourPicturesQuestion(
-                                    questionText = "¿Cuál es el nombre de este reloj?", answers = listOf(
-                                        Answers.ImageAnswer(ImageWrapper.ResourcesImage(R.mipmap.vacheron), true),
-                                        Answers.ImageAnswer(ImageWrapper.ResourcesImage(R.mipmap.vacheron), false),
-                                        Answers.ImageAnswer(ImageWrapper.ResourcesImage(R.mipmap.vacheron), false),
-                                        Answers.ImageAnswer(ImageWrapper.ResourcesImage(R.mipmap.vacheron), false)
-                                    )
-                                ),
-
-                                Question.FourTextsQuestion(
-                                    questionText = "¿Cuál es el nombre de este reloj?",
-                                    leadingImage = ImageWrapper.ResourcesImage(R.mipmap.vacheron),
-                                    answers = listOf(
-                                        Answers.TextAnswer("answ 1", true),
-                                        Answers.TextAnswer("answ 2", false),
-                                        Answers.TextAnswer("answ 3", false),
-                                        Answers.TextAnswer("answ 4", false)
-                                    )
-                                )
-                            ).shuffled())}*/
-
                             val gameViewModel = koinViewModel<GameViewModel>()
-                            gameViewModel.getGameState()
                             GameScreen(
-                                gameState = gameViewModel.gameState.value,
-                                onGameEvent = {
-                                    gameViewModel.onGameEvent(it)
+                                gameState = gameViewModel.gameState.value
+                            ) {
+                                gameViewModel.onGameEvent(it)
+                            }
+                            LaunchedEffect(key1 = true ) {
+                                gameViewModel.getGameLevelToStart()
+                            }
+                            LaunchedEffect(true) {
+                                gameViewModel.uiEvent.collect {
+                                    when (it) {
+                                        GameEvents.OnExitGameScreen -> {
+                                            navController.navigateUp()
+                                        }
+
+                                        is GameEvents.GameLevelLoaded -> {}
+                                        GameEvents.OnGameEnded -> {}
+                                        GameEvents.OnLevelEnded -> {}
+                                        GameEvents.OnOpenScoreScreen -> {}
+                                        is GameEvents.OnQuestionAnswered -> {}
+                                        is GameEvents.OnQuestionTimeExpired -> {}
+                                    }
                                 }
-                             )
+                            }
 
                         }
                         composable(route = Routes.GAME_SCORE, exitTransition = {

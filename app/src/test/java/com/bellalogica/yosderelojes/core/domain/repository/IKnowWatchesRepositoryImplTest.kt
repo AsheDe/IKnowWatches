@@ -2,9 +2,7 @@ package com.bellalogica.yosderelojes.core.domain.repository
 
 import com.bellalogica.yosderelojes.core.model.local.dao.LevelsDao
 import com.bellalogica.yosderelojes.core.model.remote.IKnowWatchesAPI
-import com.bellalogica.yosderelojes.game.model.Question
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
@@ -41,7 +39,7 @@ class IKnowWatchesRepositoryImplTest {
         mockWebServer.enqueue(
             MockResponse().setResponseCode(200).setBody(jsonNumLevelsCorrecto.trimIndent())
         )
-        val result = repository.getNumOfLevels()
+        val result = repository.getLevelsToLoadFromApi()
         assertTrue(result.isSuccess)
         assertEquals(2, result.getOrNull())
     }
@@ -52,7 +50,7 @@ class IKnowWatchesRepositoryImplTest {
         mockWebServer.enqueue(
             MockResponse().setResponseCode(404)
         )
-        val result = repository.getNumOfLevels()
+        val result = repository.getLevelsToLoadFromApi()
         assertTrue(result.isSuccess)
         assertEquals(1, result.getOrNull()) // debe devolver el numLevel de la BD
     }

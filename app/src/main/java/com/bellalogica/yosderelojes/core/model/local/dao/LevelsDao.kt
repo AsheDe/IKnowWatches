@@ -8,11 +8,10 @@ import com.bellalogica.yosderelojes.core.model.local.entity.LevelsEntity
 
 @Dao
 interface LevelsDao {
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertLevels(levelsEntity: LevelsEntity)
 
-    @Query("SELECT * FROM LevelsEntity LIMIT 1")
-    fun getNumOfLevels(): LevelsEntity?
+    @Query("SELECT * FROM levels LIMIT 1")
+    fun getNumberOfLocalLevels(): LevelsEntity?
 
 }

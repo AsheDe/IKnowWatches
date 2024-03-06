@@ -8,12 +8,8 @@ import retrofit2.http.Path
 interface IKnowWatchesAPI {
 
     @GET("/cantlevels")
-    suspend fun getGameStart(): GameInfo
+    suspend fun getApiNumberOfLevels(): GameInfo
 
     @GET("/levels/{levelNumber}")
-    suspend fun getLevel(@Path("levelNumber") levelNumber: String): GameLevelDto
-
-    companion object {
-        const val BASE_URL = "http://192.168.1.12:8080/"
-    }
+    suspend fun downloadLevel(@Path("levelNumber") levelNumber: String): GameLevelDto
 }

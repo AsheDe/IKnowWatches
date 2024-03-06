@@ -19,6 +19,7 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.bellalogica.yosderelojes.R
+import com.bellalogica.yosderelojes.ui.theme.Yellow100
 
 @Composable
 fun GameTopBar(gameState: GameState, modifier: Modifier) {
@@ -33,7 +34,9 @@ fun GameTopBar(gameState: GameState, modifier: Modifier) {
             modifier = Modifier.weight(1f),
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.headlineMedium,
-            color = MaterialTheme.colorScheme.primary
+            color = Yellow100
+
+
         )
 
         Image(
@@ -50,7 +53,7 @@ fun GameTopBar(gameState: GameState, modifier: Modifier) {
             modifier = Modifier.weight(1f),
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.headlineMedium,
-            color = MaterialTheme.colorScheme.primary
+            color = Yellow100
         )
     }
 }

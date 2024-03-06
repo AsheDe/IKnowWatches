@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -23,6 +24,7 @@ import com.bellalogica.yosderelojes.game.model.Answers
 import com.bellalogica.yosderelojes.game.model.ImageWrapper
 import com.bellalogica.yosderelojes.game.model.Question
 import com.bellalogica.yosderelojes.ui.theme.MyFontFamily
+import com.bellalogica.yosderelojes.ui.theme.Yellow100
 
 @Composable
 fun FourPicturesQuestion(
@@ -87,7 +89,7 @@ fun FourPicturesQuestion(
                // style = TextStyle(fontSize = 36.sp, color = MaterialTheme.colorScheme.primary),
                 textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.headlineLarge,
-                color = MaterialTheme.colorScheme.primary,
+                color = Yellow100,
                 fontFamily = MyFontFamily,
                 fontWeight = FontWeight.Bold,
                 fontSize = 28.sp,

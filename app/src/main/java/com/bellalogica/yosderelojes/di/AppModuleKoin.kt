@@ -4,6 +4,7 @@ import androidx.room.Room
 import com.bellalogica.yosderelojes.core.domain.repository.IKnowWatchesRepository
 import com.bellalogica.yosderelojes.core.domain.repository.IKnowWatchesRepositoryImpl
 import com.bellalogica.yosderelojes.core.model.local.IKnowWatchesRoomDataBase
+import com.bellalogica.yosderelojes.core.model.remote.IKnoWatchesURL
 import com.bellalogica.yosderelojes.core.model.remote.IKnowWatchesAPI
 import com.bellalogica.yosderelojes.game.ui.GameViewModel
 import com.bellalogica.yosderelojes.start.ui.StartScreenViewModel
@@ -16,7 +17,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 val appModuleKoin = module {
     single <IKnowWatchesAPI> {
         Retrofit.Builder().addConverterFactory(GsonConverterFactory.create())
-            .baseUrl(IKnowWatchesAPI.BASE_URL).build().create(IKnowWatchesAPI::class.java)
+            .baseUrl(IKnoWatchesURL.BASE_URL).build().create(IKnowWatchesAPI::class.java)
     }
 
     single <IKnowWatchesRoomDataBase> {
@@ -28,7 +29,12 @@ val appModuleKoin = module {
     }
 
     single <IKnowWatchesRepository> {
-        IKnowWatchesRepositoryImpl(get<IKnowWatchesRoomDataBase>().levelsDao, get())
+        IKnowWatchesRepositoryImpl(
+            get<IKnowWatchesRoomDataBase>().levelsDao,
+            get<IKnowWatchesRoomDataBase>().questionsDao,
+            get<IKnowWatchesRoomDataBase>().answersDao,
+            get<IKnowWatchesRoomDataBase>().userInfoDao,
+            get())
     }
 
     viewModel {

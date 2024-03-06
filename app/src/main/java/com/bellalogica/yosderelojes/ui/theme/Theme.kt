@@ -22,24 +22,24 @@ import com.bellalogica.yosderelojes.R
 val MyFontFamily = FontFamily(
     Font(R.font.segoeuisl, FontWeight.Normal),
     Font(R.font.segoesb, FontWeight.Medium),
-    Font(R.font.dataregular, FontWeight.Bold),
-    Font(R.font.dataregular, FontWeight.ExtraBold),
-    Font(R.font.dataregular, FontWeight.SemiBold),
+    Font(R.font.roundslabserif, FontWeight.Bold),
+    Font(R.font.roundslabserif, FontWeight.ExtraBold),
+    Font(R.font.roundslabserif, FontWeight.SemiBold),
     Font(R.font.authentic, FontWeight.Light),
 )
 
 private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80,
-    scrim = Green80
+    primary = Black100,
+    secondary = Yellow80,
+    tertiary = Black20,
+    scrim = Yellow20
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40,
-    scrim = Green40
+    primary = Black100,
+    secondary = Yellow80,
+    tertiary = Black20,
+    scrim = Yellow20
 
     /* Other default colors to override
     background = Color(0xFFFFFBFE),

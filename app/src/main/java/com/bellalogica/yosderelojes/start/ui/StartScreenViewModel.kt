@@ -1,12 +1,10 @@
 package com.bellalogica.yosderelojes.start.ui
 
-import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bellalogica.yosderelojes.R
 import com.bellalogica.yosderelojes.core.domain.repository.IKnowWatchesRepository
-import com.bellalogica.yosderelojes.core.domain.repository.IKnowWatchesRepositoryImpl
 import com.bellalogica.yosderelojes.core.model.GameStatus
 import com.bellalogica.yosderelojes.utils.UiText
 import kotlinx.coroutines.Dispatchers
@@ -16,7 +14,7 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
 
-class StartScreenViewModel (val database: IKnowWatchesRepository): ViewModel() {
+class StartScreenViewModel (private val repository: IKnowWatchesRepository): ViewModel() {
 
     var startState = mutableStateOf(StartScreenState(StartScreenInfo.Loading))
         private set
@@ -56,15 +54,23 @@ class StartScreenViewModel (val database: IKnowWatchesRepository): ViewModel() {
     }
 
     fun getGameStarterStatus() {
-        viewModelScope.launch(Dispatchers.IO) {
-           database.getNumOfLevels().onSuccess {
-               startState.value = StartScreenState(StartScreenInfo.Success)
-               _gameStatus.value = GameStatus()
-              }.onFailure {
-               startState.value = StartScreenState(StartScreenInfo.Error)
-               _uiEvent.send(StartScreenEvents.ShowMessage(UiText.StringResource(R.string.start_screen_info_error)))
-               Log.d("StartScreenViewModel", "getGameStarterStatus: ${it.message}")
-           }
+        viewModelScope.launch (Dispatchers.IO) {
+            val listOfLevelsToLoad = repository.getLevelsToLoadFromApi()
+            listOfLevelsToLoad.onSuccess { levelsNumberList ->
+                if(levelsNumberList.isNotEmpty()) {
+                    repository.downloadLevels(levelsNumberList)
+                }
+                    dataReadyToStartGame()
+            }.onFailure {
+                startState.value = StartScreenState(StartScreenInfo.Error)
+            }
+        }
+    }
+
+    private fun dataReadyToStartGame() {
+        viewModelScope.launch (Dispatchers.IO){
+            startState.value = StartScreenState(StartScreenInfo.Success)
+            _gameStatus.value = GameStatus(repository.getCurrentPlayingLevel())
         }
     }
 }

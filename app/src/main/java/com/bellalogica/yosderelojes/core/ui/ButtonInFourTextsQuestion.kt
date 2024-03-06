@@ -17,12 +17,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.bellalogica.yosderelojes.ui.theme.MyFontFamily
+import com.bellalogica.yosderelojes.ui.theme.Yellow100
+import com.bellalogica.yosderelojes.ui.theme.Yellow20
+import com.bellalogica.yosderelojes.ui.theme.Yellow80
 
 @Composable
 fun ButtonInFourTextsQuestion(modifier: Modifier, text: String, event: () -> Unit) {
     OutlinedButton(
         onClick =  event ,
-        border = BorderStroke(2.dp, MaterialTheme.colorScheme.primaryContainer),
+        border = BorderStroke(2.dp, Yellow80),
         modifier = modifier
             .fillMaxWidth()
             .padding(start = 32.dp, end = 32.dp),
@@ -33,10 +36,10 @@ fun ButtonInFourTextsQuestion(modifier: Modifier, text: String, event: () -> Uni
     ) {
         Text(text = text,
             style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.onPrimary,
+            color = Yellow100,
             fontFamily = MyFontFamily,
             fontWeight = FontWeight.SemiBold,
-            fontSize = 16.sp)
+            fontSize = 18.sp)
     }
 
 }

@@ -1,5 +1,3 @@
 package com.bellalogica.yosderelojes.core.model
 
-class GameStatus {
-
-}
+data class GameStatus(val levelPlaying: Int = 1)

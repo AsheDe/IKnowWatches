@@ -4,11 +4,11 @@ import com.bellalogica.yosderelojes.game.model.Question
 import com.bellalogica.yosderelojes.game.ui.UserState
 
 interface IKnowWatchesRepository {
-    suspend fun getNumOfLevels(): Result<Int>
-    suspend fun getLastLevelPlayed(): Result<Int>
-
-    suspend fun getLevel(levelNumber: Int): Result<List<Question>>
-
-    suspend fun getCurrentPlayingGameLevel(): Result<List<Question>>
-    suspend fun getUserInfo(): Result<UserState?>
+    suspend fun getLevelsToLoadFromApi(): Result<List<Int>>
+    suspend fun getCurrentPlayingLevel(): Int
+    suspend fun getQuestionsForLevel(level: Int): List<Question>
+    suspend fun getUserInfo(): UserState
+    suspend fun downloadLevels(list: List<Int>)
+    suspend fun getApiNumberOfLevels(): Int
+    suspend fun getLocalNumberOfLevels(): Int
 }

@@ -9,4 +9,5 @@
     <string name="start_screen_info_error">Existió un error al cargar el juego. Por favor intente de nuevo.</string>
     <string name="vidas">vidas</string>
     <string name="puntos">puntos</string>
+    <string name="empty_level_error">Lo sentimos pero existio un error al cargar las preguntas del nivel.</string>
 </resources>

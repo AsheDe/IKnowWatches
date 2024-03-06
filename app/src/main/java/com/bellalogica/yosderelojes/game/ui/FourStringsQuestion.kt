@@ -25,6 +25,10 @@ import com.bellalogica.yosderelojes.game.model.Answers
 import com.bellalogica.yosderelojes.game.model.ImageWrapper
 import com.bellalogica.yosderelojes.game.model.Question
 import com.bellalogica.yosderelojes.ui.theme.MyFontFamily
+import com.bellalogica.yosderelojes.ui.theme.Yellow100
+import com.bellalogica.yosderelojes.ui.theme.Yellow20
+import com.bellalogica.yosderelojes.ui.theme.Yellow60
+import com.bellalogica.yosderelojes.ui.theme.Yellow80
 
 @Composable
 fun FourStringsQuestion(
@@ -47,7 +51,7 @@ fun FourStringsQuestion(
                 modifier = Modifier
                     .fillMaxWidth(1f)
                     .padding(8.dp)
-                    .border(4.dp, MaterialTheme.colorScheme.primary)
+                    .border(4.dp, Yellow80)
                     .fillMaxHeight(0.35f)
                     .clickable { })
 
@@ -58,7 +62,7 @@ fun FourStringsQuestion(
                     .padding(16.dp),
                 textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.headlineMedium,
-                color = MaterialTheme.colorScheme.primary,
+                color = Yellow100,
                 fontFamily = MyFontFamily,
                 fontWeight = FontWeight.SemiBold
             )
